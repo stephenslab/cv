@@ -1,6 +1,6 @@
 # TO DO: Explain briefly what this function does, and how to use it.
 perform_cv <- function (fit, predict, evaluate, dat, cvpar, noncvpar = NULL,
-                        k = 5) {
+                        k = 5, init = NULL) {
 
   # Get the number of data samples.
   n <- nrow(dat)
@@ -20,7 +20,7 @@ perform_cv <- function (fit, predict, evaluate, dat, cvpar, noncvpar = NULL,
   # Convert cvpar to a list if necessary.
   if (!is.list(cvpar))
     cvpar <- as.list(cvpar)
-  
+
   # Repeat for each fold.
   for (j in 1:k) {
 
@@ -32,7 +32,7 @@ perform_cv <- function (fit, predict, evaluate, dat, cvpar, noncvpar = NULL,
     for (i in 1:length(cvpar)) {
 
       # Fit the model to the training data.
-      model <- fit(train,cvpar[[i]],noncvpar)
+      model <- fit(train,cvpar[[i]],noncvpar,init)
 
       # Make predictions in the test samples.
       pred <- predict(test,model)

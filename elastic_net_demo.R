@@ -14,7 +14,7 @@ b[sample(p,4)] <- c(1,-1,1,-1)
 y <- drop(X %*% b + rnorm(n))
 
 # Fit an Elastic Net model using glmnet.
-fit_glmnet <- function (dat, cvpar, noncvpar)
+fit_glmnet <- function (dat, cvpar, noncvpar, init)
   glmnet(x = dat[,-1],y = dat[,1],lambda = cvpar,alpha = 0.5)
 
 # Predict Y using the fitted Elastic Net model.
