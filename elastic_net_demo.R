@@ -1,5 +1,6 @@
 # TO DO: Give an overview of this demo.
 library(glmnet)
+library(parallel)
 source("cv.R")
 
 # Initialize the sequence of pseudorandom numbers.
