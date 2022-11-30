@@ -33,7 +33,11 @@ compute_mse <- function (pred, true)
 # Perform cross-validation to choose the penalty strength of the
 # Elastic Net model.
 lambda <- round(rev(exp(seq(-3.75,0.85,length.out = 100))),digits = 4)
-cv <- perform_cv(fit_glmnet,predict_glmnet,compute_mse,cbind(y,X),lambda)
+t0 <- proc.time()
+cv <- perform_cv(fit_glmnet,predict_glmnet,compute_mse,cbind(y,X),lambda,
+                 nc = 2)
+t1 <- proc.time()
+print(t1 - t0)
 
 # Compare with cv.glmnet.
 res <- cv.glmnet(X,y,alpha = 0.5)

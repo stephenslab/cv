@@ -32,24 +32,22 @@ perform_cv <- function (fit, predict, evaluate, dat, cvpar, noncvpar = NULL,
                          config[1],config[2])
   if (nc == 1)
     out <- sapply(configs,f)
+  else
+    out <- unlist(mclapply(configs,f,mc.cores = nc))
   out <- matrix(out,m,k,byrow = TRUE)
   rownames(out) <- out_rownames
   colnames(out) <- paste0("k",1:k)
-  
-  # Convert cvpar to a list if necessary.
-  if (is.atomic(cvpar))
-    out_rownames <- cvpar
   
   # Return the cross-validation matrix.
   return(out)
 }
 
 # Implements the fit-predict-evaluate sequence for fold k and
-# parameter setting i.
-fit_predict_evaluate <- function (dat, folds, cvpar, noncvpar, fit, predict,
-                                  evaluate, init, k, i) {
+# parameter setting cvpar[[i]].
+fit_predict_evaluate <- function (dat, folds, cvpar, noncvpar, fit,
+                                  predict, evaluate, init, k, i) {
       
-  # Construct the training and test sets.
+  # Generate the training and test sets.
   train <- dat[folds != k,]
   test  <- dat[folds == k,]
 
@@ -59,7 +57,6 @@ fit_predict_evaluate <- function (dat, folds, cvpar, noncvpar, fit, predict,
   # Make predictions in the test samples.
   pred <- predict(test,model)
 
-  # Evaluate the predictions, and store the error measure in the
-  # cross-validation matrix.
+  # Evaluate the predictions.
   return(evaluate(pred,test))
 }
