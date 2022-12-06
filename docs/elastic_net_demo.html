@@ -12,7 +12,7 @@
 <meta name="author" content="Peter Carbonetto" />
 
 
-<title>Elastic net cross-validation demo</title>
+<title>Elastic Net cross-validation demo</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -269,7 +269,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Elastic net cross-validation demo</h1>
+<h1 class="title toc-ignore">Elastic Net cross-validation demo</h1>
 <h4 class="author">Peter Carbonetto</h4>
 
 </div>
@@ -430,15 +430,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree51a904ed0bc58c76d1df47a1bdf29b22acef6b9atargetblank51a904ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree75bbb83f743248cf7f0727e213016821337275a5targetblank75bbb83a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/cv/tree/51a904ed0bc58c76d1df47a1bdf29b22acef6b9a" target="_blank">51a904e</a>
+<a href="https://github.com/stephenslab/cv/tree/75bbb83f743248cf7f0727e213016821337275a5" target="_blank">75bbb83</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree51a904ed0bc58c76d1df47a1bdf29b22acef6b9atargetblank51a904ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree75bbb83f743248cf7f0727e213016821337275a5targetblank75bbb83a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -448,7 +448,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/cv/tree/51a904ed0bc58c76d1df47a1bdf29b22acef6b9a" target="_blank">51a904e</a>.
+<a href="https://github.com/stephenslab/cv/tree/75bbb83f743248cf7f0727e213016821337275a5" target="_blank">75bbb83</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -512,6 +512,57 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/stephenslab/cv/blob/75bbb83f743248cf7f0727e213016821337275a5/analysis/elastic_net_demo.Rmd" target="_blank">75bbb83</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+workflowr::wflow_publish("elastic_net_demo.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/a07774d9e2e66154f9caeabeda1ef43b68d01c8c/analysis/elastic_net_demo.Rmd" target="_blank">a07774d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+Filled out main code for elastic_net_demo.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/cv/d182ffd71701f2b94398d8ed9d9c542d493cf755/docs/elastic_net_demo.html" target="_blank">d182ffd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+First build of elastic_net_demo example.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/stephenslab/cv/blob/51a904ed0bc58c76d1df47a1bdf29b22acef6b9a/analysis/elastic_net_demo.Rmd" target="_blank">51a904e</a>
 </td>
 <td>
@@ -531,11 +582,15 @@ workflowr::wflow_publish("elastic_net_demo.Rmd")
 </div>
 </div>
 </div>
-<p>TO DO: Give brief overview of the this demo.</p>
-<p>Load a couple packaeges and the cross-validation code.</p>
+<p>Here we illustrate how to use the <code>perform_cv</code>
+cross-validation interface to estimate the penalty strength paramter in
+the Elastic Net model in glmnet. Of course, glmnet already has a
+cross-validation interface, so we can use the existing cross-validation
+function in glmnet to verify our implementation. Indeed,
+<code>perform_cv</code> almost exactly reproduces the
+<code>cv.glmnet</code> output in this example.</p>
+<p>Load a couple packages and the <code>perform_cv</code> code.</p>
 <pre class="r"><code>library(glmnet)
-# Loading required package: Matrix
-# Loaded glmnet 4.0-2
 library(parallel)
 source(&quot;../code/cv.R&quot;)</code></pre>
 <p>Initialize the sequence of pseudorandom numbers.</p>
@@ -547,6 +602,41 @@ X &lt;- matrix(rnorm(n*p),n,p)
 b &lt;- rep(0,p)
 b[sample(p,4)] &lt;- c(1,-1,1,-1)
 y &lt;- X %*% b + rnorm(n)</code></pre>
+<p>To perform cross-validation, we need to define three functions: (1) a
+function to fit an Elastic Net model; (2) a function to predict Y using
+the fitted Elastic Net model; and (3) a function to evaluate the
+accuracy of the predicted Y (here we use the mean-squared error, which
+is also what is used in the glmnet package to evaluate the
+predictions).</p>
+<p>This function fits an Elastic Net model:</p>
+<pre class="r"><code>fit_glmnet &lt;- function (x, y, cvpar, noncvpar, init)
+  glmnet(x,y,lambda = cvpar,alpha = 0.5)</code></pre>
+<p>This function predicts Y using the fitted Elastic Net model:</p>
+<pre class="r"><code>predict_glmnet &lt;- function (x, model)
+  predict(model,x)</code></pre>
+<p>This function computes the mean squared error (MSE) between the
+predicted and true Y:</p>
+<pre class="r"><code>compute_mse &lt;- function (pred, true)
+  mean((pred - true)^2)</code></pre>
+<p>Having defined these three functions, we are ready to use
+<code>perform_cv</code>:</p>
+<pre class="r"><code>lambda &lt;- round(rev(exp(seq(-3.75,0.85,length.out = 100))),digits = 4)
+t0 &lt;- proc.time()
+cv &lt;- perform_cv(fit_glmnet,predict_glmnet,compute_mse,X,y,lambda,nc = 2)
+t1 &lt;- proc.time()
+print(t1 - t0)
+#    user  system elapsed 
+#   0.025   0.007   2.757</code></pre>
+<p>Compare the result with the result obtained from running
+<code>cv.glmnet</code> on the same data (the dark blue line is the
+<code>cv.glmnet</code> result, and the dashed, orange line is our
+result):</p>
+<pre class="r"><code>par(mar = c(4,4,0,0))
+res &lt;- cv.glmnet(X,y,alpha = 0.5)
+plot(res$lambda,res$cvm,type = &quot;l&quot;,col = &quot;darkblue&quot;,lwd = 2,log = &quot;x&quot;,
+     xlab = &quot;lambda&quot;,ylab = &quot;mse&quot;)
+lines(lambda,rowMeans(cv),col = &quot;darkorange&quot;,lwd = 2,lty = &quot;dashed&quot;)</code></pre>
+<p><img src="figure/elastic_net_demo.Rmd/compare-to-glmnet-1.png" width="360" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -575,18 +665,18 @@ Session information
 # [1] glmnet_4.0-2 Matrix_1.4-2
 # 
 # loaded via a namespace (and not attached):
-#  [1] Rcpp_1.0.8        pillar_1.6.2      compiler_3.6.2    bslib_0.3.1      
-#  [5] later_1.0.0       jquerylib_0.1.4   git2r_0.29.0      workflowr_1.7.0.3
-#  [9] iterators_1.0.12  tools_3.6.2       digest_0.6.23     lattice_0.20-38  
-# [13] jsonlite_1.7.2    evaluate_0.14     lifecycle_1.0.0   tibble_3.1.3     
-# [17] pkgconfig_2.0.3   rlang_0.4.11      foreach_1.4.7     yaml_2.2.0       
-# [21] xfun_0.29         fastmap_1.1.0     stringr_1.4.0     knitr_1.37       
-# [25] fs_1.5.2          vctrs_0.3.8       sass_0.4.0        rprojroot_1.3-2  
-# [29] grid_3.6.2        glue_1.4.2        R6_2.4.1          fansi_0.4.0      
-# [33] survival_3.1-8    rmarkdown_2.11    magrittr_2.0.1    whisker_0.4      
-# [37] splines_3.6.2     codetools_0.2-16  backports_1.1.5   promises_1.1.0   
-# [41] ellipsis_0.3.2    htmltools_0.5.2   shape_1.4.4       httpuv_1.5.2     
-# [45] utf8_1.1.4        stringi_1.4.3     crayon_1.4.1</code></pre>
+#  [1] Rcpp_1.0.8        highr_0.8         pillar_1.6.2      compiler_3.6.2   
+#  [5] bslib_0.3.1       later_1.0.0       jquerylib_0.1.4   git2r_0.29.0     
+#  [9] workflowr_1.7.0.3 iterators_1.0.12  tools_3.6.2       digest_0.6.23    
+# [13] lattice_0.20-38   jsonlite_1.7.2    evaluate_0.14     lifecycle_1.0.0  
+# [17] tibble_3.1.3      pkgconfig_2.0.3   rlang_0.4.11      foreach_1.4.7    
+# [21] yaml_2.2.0        xfun_0.29         fastmap_1.1.0     stringr_1.4.0    
+# [25] knitr_1.37        fs_1.5.2          vctrs_0.3.8       sass_0.4.0       
+# [29] rprojroot_1.3-2   grid_3.6.2        glue_1.4.2        R6_2.4.1         
+# [33] fansi_0.4.0       survival_3.1-8    rmarkdown_2.11    magrittr_2.0.1   
+# [37] whisker_0.4       splines_3.6.2     codetools_0.2-16  backports_1.1.5  
+# [41] promises_1.1.0    ellipsis_0.3.2    htmltools_0.5.2   shape_1.4.4      
+# [45] httpuv_1.5.2      utf8_1.1.4        stringi_1.4.3     crayon_1.4.1</code></pre>
 </div>
 
 
