@@ -1,0 +1,38 @@
+---
+title: Elastic net cross-validation demo
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+TO DO: Give brief overview of the this demo.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load a couple packaeges and the cross-validation code.
+
+```{r load-pkgs}
+library(glmnet)
+library(parallel)
+source("../code/cv.R")
+```
+
+Initialize the sequence of pseudorandom numbers.
+
+```{r set-seed}
+set.seed(1)
+```
+
+Simulate a regression data set.
+
+```{r sim-data}
+n <- 200
+p <- 1000
+X <- matrix(rnorm(n*p),n,p)
+b <- rep(0,p)
+b[sample(p,4)] <- c(1,-1,1,-1)
+y <- X %*% b + rnorm(n)
+```
+
