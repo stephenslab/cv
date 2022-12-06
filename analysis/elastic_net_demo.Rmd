@@ -4,14 +4,19 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-TO DO: Give brief overview of the this demo.
+Here we illustrate how to use the `perform_cv` cross-validation
+interface to estimate the penalty strength paramter in the Elastic Net
+model in glmnet. Of course, glmnet already has a cross-validation
+interface, so we can use the existing cross-validation function in
+glmnet to verify our implementation. Indeed, `perform_cv` almost
+exactly reproduces the `cv.glmnet` output in this example.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Load a couple packaeges and the cross-validation code.
+Load a couple packages and the `perform_cv` code.
 
 ```{r load-pkgs, message=FALSE}
 library(glmnet)
@@ -37,19 +42,19 @@ y <- X %*% b + rnorm(n)
 ```
 
 To perform cross-validation, we need to define three functions: (1) a
-function to fit an Elastic Net model; and (2) a function to predict Y
-from X and a fitted model; and (3) a function to evaluate the accuracy
-of the predicted Y (here we use the mean-squared error, which is also
-what is used in the glmnet package).
+function to fit an Elastic Net model; (2) a function to predict Y
+using the fitted Elastic Net model; and (3) a function to evaluate the
+accuracy of the predicted Y (here we use the mean-squared error, which
+is also what is used in the glmnet package to evaluate the predictions).
 
-This function fits an Elastic Net model using glmnet:
+This function fits an Elastic Net model:
 
 ```{r fit-glmnet}
 fit_glmnet <- function (x, y, cvpar, noncvpar, init)
   glmnet(x,y,lambda = cvpar,alpha = 0.5)
   ```
   
-This function preducts Y using the fitted Elastic Net model:
+This function predicts Y using the fitted Elastic Net model:
 
 ```{r predict-glmnet}
 predict_glmnet <- function (x, model)
@@ -57,16 +62,15 @@ predict_glmnet <- function (x, model)
 ```
 
 This function computes the mean squared error (MSE) between the
-predicted Y and true Y:
+predicted and true Y:
 
 ```{r compute-mse}
 compute_mse <- function (pred, true)
   mean((pred - true)^2)
 ```
 
-Having defined these three functions, we are ready to use the
-`perform_cv` interface to run the cross-validation to choose the
-strength ($\lambda$) of the Elastic Net penalty:
+Having defined these three functions, we are ready to use
+`perform_cv`:
 
 ```{r run-cv}
 lambda <- round(rev(exp(seq(-3.75,0.85,length.out = 100))),digits = 4)
@@ -76,9 +80,12 @@ t1 <- proc.time()
 print(t1 - t0)
 ```
 
-Compare with cv.glmnet:
+Compare the result with the result obtained from running `cv.glmnet`
+on the same data (the dark blue line is the `cv.glmnet` result, and
+the dashed, orange line is our result):
 
-```{r compare-to-glmnet, fig.height=4, fig.width=4}
+```{r compare-to-glmnet, fig.height=2.8, fig.width=3}
+par(mar = c(4,4,0,0))
 res <- cv.glmnet(X,y,alpha = 0.5)
 plot(res$lambda,res$cvm,type = "l",col = "darkblue",lwd = 2,log = "x",
      xlab = "lambda",ylab = "mse")
