@@ -430,15 +430,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree75bbb83f743248cf7f0727e213016821337275a5targetblank75bbb83a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtreef30d795685ab50adf8b26cf2543e940f670c8aa9targetblankf30d795a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/cv/tree/75bbb83f743248cf7f0727e213016821337275a5" target="_blank">75bbb83</a>
+<a href="https://github.com/stephenslab/cv/tree/f30d795685ab50adf8b26cf2543e940f670c8aa9" target="_blank">f30d795</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree75bbb83f743248cf7f0727e213016821337275a5targetblank75bbb83a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtreef30d795685ab50adf8b26cf2543e940f670c8aa9targetblankf30d795a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -448,7 +448,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/cv/tree/75bbb83f743248cf7f0727e213016821337275a5" target="_blank">75bbb83</a>.
+<a href="https://github.com/stephenslab/cv/tree/f30d795685ab50adf8b26cf2543e940f670c8aa9" target="_blank">f30d795</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -507,6 +507,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/f30d795685ab50adf8b26cf2543e940f670c8aa9/analysis/elastic_net_demo.Rmd" target="_blank">f30d795</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+workflowr::wflow_publish("elastic_net_demo.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/cv/09006065a9b109cd459207e85c5ff2ae57dcc324/docs/elastic_net_demo.html" target="_blank">0900606</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+Filled out text in elastic_net_demo.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -626,10 +660,10 @@ cv &lt;- perform_cv(fit_glmnet,predict_glmnet,compute_mse,X,y,lambda,nc = 2)
 t1 &lt;- proc.time()
 print(t1 - t0)
 #    user  system elapsed 
-#   0.025   0.007   2.757</code></pre>
+#   5.291   0.549   3.475</code></pre>
 <p>Compare the result with the result obtained from running
 <code>cv.glmnet</code> on the same data (the dark blue line is the
-<code>cv.glmnet</code> result, and the dashed, orange line is our
+<code>cv.glmnet</code> result, and the dashed orange line is our
 result):</p>
 <pre class="r"><code>par(mar = c(4,4,0,0))
 res &lt;- cv.glmnet(X,y,alpha = 0.5)
@@ -637,6 +671,43 @@ plot(res$lambda,res$cvm,type = &quot;l&quot;,col = &quot;darkblue&quot;,lwd = 2,
      xlab = &quot;lambda&quot;,ylab = &quot;mse&quot;)
 lines(lambda,rowMeans(cv),col = &quot;darkorange&quot;,lwd = 2,lty = &quot;dashed&quot;)</code></pre>
 <p><img src="figure/elastic_net_demo.Rmd/compare-to-glmnet-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-compare-to-glmnet-1">
+Past versions of compare-to-glmnet-1.png
+</button>
+</p>
+<div id="fig-compare-to-glmnet-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/09006065a9b109cd459207e85c5ff2ae57dcc324/docs/figure/elastic_net_demo.Rmd/compare-to-glmnet-1.png" target="_blank">0900606</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
