@@ -1,14 +1,14 @@
 # TO DO: Explain briefly what this function does, and how to use it.
-perform_cv <- function (fit, predict, evaluate, dat, cvpar, noncvpar = NULL,
+perform_cv <- function (fit, predict, evaluate, x, y, cvpar, noncvpar = NULL,
                         k = 5, nc = 1, init = NULL) {
 
   # Get the number of data samples.
-  n <- nrow(dat)
+  n <- nrow(x)
 
   # Get the number of parameter settings.
   m <- length(cvpar)
   
-  # Assign the data samples (rows of dat) into k groups ("folds").
+  # Assign the data samples (rows of x, y) into k groups ("folds").
   folds <- sample(rep(1:k,length.out = n))
 
   # Set up the cross-validation matrix.
@@ -28,7 +28,7 @@ perform_cv <- function (fit, predict, evaluate, dat, cvpar, noncvpar = NULL,
   configs <- expand.grid(list(fold = 1:k,param = 1:m))
   configs <- as.list(as.data.frame(t(configs)))
   f <- function (config)
-    fit_predict_evaluate(dat,folds,cvpar,noncvpar,fit,predict,evaluate,init,
+    fit_predict_evaluate(x,y,folds,cvpar,noncvpar,fit,predict,evaluate,init,
                          config[1],config[2])
   if (nc == 1)
     out <- sapply(configs,f)
@@ -44,19 +44,19 @@ perform_cv <- function (fit, predict, evaluate, dat, cvpar, noncvpar = NULL,
 
 # Implements the fit-predict-evaluate sequence for fold k and
 # parameter setting cvpar[[i]].
-fit_predict_evaluate <- function (dat, folds, cvpar, noncvpar, fit,
+fit_predict_evaluate <- function (x, y, folds, cvpar, noncvpar, fit,
                                   predict, evaluate, init, k, i) {
       
   # Generate the training and test sets.
-  train <- dat[folds != k,]
-  test  <- dat[folds == k,]
+  train <- which(folds != k)
+  test  <- which(folds == k)    
 
   # Fit the model to the training data.
-  model <- fit(train,cvpar[[i]],noncvpar,init)
+  model <- fit(x[train,],y[train,],cvpar[[i]],noncvpar,init)
 
   # Make predictions in the test samples.
-  pred <- predict(test,model)
+  pred <- predict(x[test,],model)
 
   # Evaluate the predictions.
-  return(evaluate(pred,test))
+  return(evaluate(pred,y[test,]))
 }
