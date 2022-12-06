@@ -8,7 +8,7 @@ output: workflowr::wflow_html
 Browse the pages below for illustrations of the cross-validation
 interface.
 
-+ [Elastic net demo](elastic_net_demo.html)
++ [Elastic Net demo](elastic_net_demo.html)
 
 + *k*-means demo
 
