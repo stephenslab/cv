@@ -82,7 +82,7 @@ print(t1 - t0)
 
 Compare the result with the result obtained from running `cv.glmnet`
 on the same data (the dark blue line is the `cv.glmnet` result, and
-the dashed, orange line is our result):
+the dashed orange line is our result):
 
 ```{r compare-to-glmnet, fig.height=2.8, fig.width=3}
 par(mar = c(4,4,0,0))
