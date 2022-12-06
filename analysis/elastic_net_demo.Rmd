@@ -1,5 +1,5 @@
 ---
-title: Elastic net cross-validation demo
+title: Elastic Net cross-validation demo
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 
 Load a couple packaeges and the cross-validation code.
 
-```{r load-pkgs}
+```{r load-pkgs, message=FALSE}
 library(glmnet)
 library(parallel)
 source("../code/cv.R")
@@ -36,3 +36,51 @@ b[sample(p,4)] <- c(1,-1,1,-1)
 y <- X %*% b + rnorm(n)
 ```
 
+To perform cross-validation, we need to define three functions: (1) a
+function to fit an Elastic Net model; and (2) a function to predict Y
+from X and a fitted model; and (3) a function to evaluate the accuracy
+of the predicted Y (here we use the mean-squared error, which is also
+what is used in the glmnet package).
+
+This function fits an Elastic Net model using glmnet:
+
+```{r fit-glmnet}
+fit_glmnet <- function (x, y, cvpar, noncvpar, init)
+  glmnet(x,y,lambda = cvpar,alpha = 0.5)
+  ```
+  
+This function preducts Y using the fitted Elastic Net model:
+
+```{r predict-glmnet}
+predict_glmnet <- function (x, model)
+  predict(model,x)
+```
+
+This function computes the mean squared error (MSE) between the
+predicted Y and true Y:
+
+```{r compute-mse}
+compute_mse <- function (pred, true)
+  mean((pred - true)^2)
+```
+
+Having defined these three functions, we are ready to use the
+`perform_cv` interface to run the cross-validation to choose the
+strength ($\lambda$) of the Elastic Net penalty:
+
+```{r run-cv}
+lambda <- round(rev(exp(seq(-3.75,0.85,length.out = 100))),digits = 4)
+t0 <- proc.time()
+cv <- perform_cv(fit_glmnet,predict_glmnet,compute_mse,X,y,lambda,nc = 2)
+t1 <- proc.time()
+print(t1 - t0)
+```
+
+Compare with cv.glmnet:
+
+```{r compare-to-glmnet, fig.height=4, fig.width=4}
+res <- cv.glmnet(X,y,alpha = 0.5)
+plot(res$lambda,res$cvm,type = "l",col = "darkblue",lwd = 2,log = "x",
+     xlab = "lambda",ylab = "mse")
+lines(lambda,rowMeans(cv),col = "darkorange",lwd = 2,lty = "dashed")
+```
