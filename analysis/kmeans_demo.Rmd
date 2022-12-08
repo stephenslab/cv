@@ -4,7 +4,19 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-TO DO: Give overview and motivation for this analysis.
+This is another simple illustration of the `perform_cv`
+cross-validation interface in which we use cross-validation to select
+the $k$ (the number of clusters) in $k$-means. This example introduces
+two slight complications that didn't arise in the Elastic Net demo:
+
+1. The $k$-means output depends on initialization. We address this by
+   providing a common initialization for all the $k$-means runs. This
+   ensures that `perform_cv` always produces the same result.
+
+2. The $k$-means problem is an *unsupervised learning problem*, so $Y$
+   (which we define to be the unknown cluster centers) is not used in
+   the "fit" function, and is only used for evaluating the quality of
+   the fit.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -80,15 +92,24 @@ compute_mse <- function (pred, true)
   mean((pred - true)^2)
 ```
 
-Having defined these three functions, we are ready to use
+Having defined these three functions, and determined a common
+initialization for all the *k*-means runs, we are now ready to use
 `perform_cv`.
 
 ```{r run-cv}
 k <- 2:10
-t0 <- proc.time()
 cv <- perform_cv(run_kmeans,predict_kmeans,compute_mse,X,
                  centers[membership,],k)
-t1 <- proc.time()
-print(t1 - t0)
 ```
 
+Now let's see how the prediction error evolves as we change $k$.
+
+```{r plot-k-vs-mse, fig.height=2.8, fig.width=3}
+par(mar = c(4,4,0,0))
+plot(k,rowMeans(cv),type = "l",col = "darkblue",lwd = 2,
+     xlab = "k",ylab = "mse")
+points(k,rowMeans(cv),pch = 20)
+```
+
+Reassuringly, the lowest error is achieved at the correct number of
+clusters ($k = 5$).
