@@ -50,7 +50,7 @@ is also what is used in the glmnet package to evaluate the predictions).
 This function fits an Elastic Net model:
 
 ```{r fit-glmnet}
-fit_glmnet <- function (x, y, cvpar, noncvpar, init)
+fit_glmnet <- function (x, y, cvpar)
   glmnet(x,y,lambda = cvpar,alpha = 0.5)
 ```
   
