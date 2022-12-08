@@ -430,15 +430,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree0cdce4bfd040464eefcd46d02621d266c4b1a29atargetblank0cdce4ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtreef900394fbfeb5129ffc4bfad9fc80a2c9f521dfbtargetblankf900394a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/cv/tree/0cdce4bfd040464eefcd46d02621d266c4b1a29a" target="_blank">0cdce4b</a>
+<a href="https://github.com/stephenslab/cv/tree/f900394fbfeb5129ffc4bfad9fc80a2c9f521dfb" target="_blank">f900394</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree0cdce4bfd040464eefcd46d02621d266c4b1a29atargetblank0cdce4ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtreef900394fbfeb5129ffc4bfad9fc80a2c9f521dfbtargetblankf900394a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -448,7 +448,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/cv/tree/0cdce4bfd040464eefcd46d02621d266c4b1a29a" target="_blank">0cdce4b</a>.
+<a href="https://github.com/stephenslab/cv/tree/f900394fbfeb5129ffc4bfad9fc80a2c9f521dfb" target="_blank">f900394</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -509,6 +509,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/f900394fbfeb5129ffc4bfad9fc80a2c9f521dfb/analysis/kmeans_demo.Rmd" target="_blank">f900394</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-08
+</td>
+<td>
+workflowr::wflow_publish("kmeans_demo.Rmd", verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/cv/676df0af81dddab0cb632a2d79d62948e90f4d92/docs/kmeans_demo.html" target="_blank">676df0a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -673,10 +707,46 @@ cv &lt;- perform_cv(run_kmeans,predict_kmeans,compute_mse,X,
 <p>Now let’s see how the prediction error evolves as we change <span
 class="math inline">\(k\)</span>.</p>
 <pre class="r"><code>par(mar = c(4,4,0,0))
-plot(k,rowMeans(cv),type = &quot;l&quot;,col = &quot;darkblue&quot;,lwd = 2,
-     xlab = &quot;k&quot;,ylab = &quot;mse&quot;)
+plot(k,rowMeans(cv),type = &quot;l&quot;,lwd = 2,xlab = &quot;k&quot;,ylab = &quot;mse&quot;)
 points(k,rowMeans(cv),pch = 20)</code></pre>
 <p><img src="figure/kmeans_demo.Rmd/plot-k-vs-mse-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-k-vs-mse-1">
+Past versions of plot-k-vs-mse-1.png
+</button>
+</p>
+<div id="fig-plot-k-vs-mse-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/676df0af81dddab0cb632a2d79d62948e90f4d92/docs/figure/kmeans_demo.Rmd/plot-k-vs-mse-1.png" target="_blank">676df0a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Reassuringly, the lowest error is achieved at the correct number of
 clusters (<span class="math inline">\(k = 5\)</span>).</p>
 <br>
