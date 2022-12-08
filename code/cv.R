@@ -1,6 +1,5 @@
 # TO DO: Explain briefly what this function does, and how to use it.
-perform_cv <- function (fit, predict, evaluate, x, y, cvpar, noncvpar = NULL,
-                        k = 5, nc = 1, init = NULL) {
+perform_cv <- function (fit, predict, evaluate, x, y, cvpar, k = 5, nc = 1) {
 
   # Get the number of data samples.
   n <- nrow(x)
@@ -28,7 +27,7 @@ perform_cv <- function (fit, predict, evaluate, x, y, cvpar, noncvpar = NULL,
   configs <- expand.grid(list(fold = 1:k,param = 1:m))
   configs <- as.list(as.data.frame(t(configs)))
   f <- function (config)
-    fit_predict_evaluate(x,y,folds,cvpar,noncvpar,fit,predict,evaluate,init,
+    fit_predict_evaluate(x,y,folds,cvpar,fit,predict,evaluate,
                          config[1],config[2])
   if (nc == 1)
     out <- sapply(configs,f)
@@ -44,15 +43,15 @@ perform_cv <- function (fit, predict, evaluate, x, y, cvpar, noncvpar = NULL,
 
 # Implements the fit-predict-evaluate sequence for fold k and
 # parameter setting cvpar[[i]].
-fit_predict_evaluate <- function (x, y, folds, cvpar, noncvpar, fit,
-                                  predict, evaluate, init, k, i) {
+fit_predict_evaluate <- function (x, y, folds, cvpar, fit, predict, evaluate,
+                                  k, i) {
       
   # Generate the training and test sets.
   train <- which(folds != k)
   test  <- which(folds == k)    
 
   # Fit the model to the training data.
-  model <- fit(x[train,],y[train,],cvpar[[i]],noncvpar,init)
+  model <- fit(x[train,],y[train,],cvpar[[i]])
 
   # Make predictions in the test samples.
   pred <- predict(x[test,],model)
