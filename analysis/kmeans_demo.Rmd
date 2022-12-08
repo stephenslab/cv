@@ -106,8 +106,7 @@ Now let's see how the prediction error evolves as we change $k$.
 
 ```{r plot-k-vs-mse, fig.height=2.8, fig.width=3}
 par(mar = c(4,4,0,0))
-plot(k,rowMeans(cv),type = "l",col = "darkblue",lwd = 2,
-     xlab = "k",ylab = "mse")
+plot(k,rowMeans(cv),type = "l",lwd = 2,xlab = "k",ylab = "mse")
 points(k,rowMeans(cv),pch = 20)
 ```
 
