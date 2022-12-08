@@ -10,5 +10,4 @@ interface.
 
 + [Elastic Net demo](elastic_net_demo.html)
 
-+ *k*-means demo
-
++ [*k*-means demo](kmeans_demo.html)
