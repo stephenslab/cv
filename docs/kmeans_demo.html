@@ -430,15 +430,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree1af11df65b730ac04a4d4a83ccb8142c3379470ctargetblank1af11dfa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree0cdce4bfd040464eefcd46d02621d266c4b1a29atargetblank0cdce4ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/cv/tree/1af11df65b730ac04a4d4a83ccb8142c3379470c" target="_blank">1af11df</a>
+<a href="https://github.com/stephenslab/cv/tree/0cdce4bfd040464eefcd46d02621d266c4b1a29a" target="_blank">0cdce4b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree1af11df65b730ac04a4d4a83ccb8142c3379470ctargetblank1af11dfa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree0cdce4bfd040464eefcd46d02621d266c4b1a29atargetblank0cdce4ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -448,7 +448,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/cv/tree/1af11df65b730ac04a4d4a83ccb8142c3379470c" target="_blank">1af11df</a>.
+<a href="https://github.com/stephenslab/cv/tree/0cdce4bfd040464eefcd46d02621d266c4b1a29a" target="_blank">0cdce4b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -514,6 +514,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/stephenslab/cv/blob/0cdce4bfd040464eefcd46d02621d266c4b1a29a/analysis/kmeans_demo.Rmd" target="_blank">0cdce4b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-08
+</td>
+<td>
+workflowr::wflow_publish("kmeans_demo.Rmd", verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/cv/b6a0140d6c668d5589f31695b27a30fc8966be51/docs/kmeans_demo.html" target="_blank">b6a0140</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-08
+</td>
+<td>
+First build of the k-means demo.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/stephenslab/cv/blob/1af11df65b730ac04a4d4a83ccb8142c3379470c/analysis/kmeans_demo.Rmd" target="_blank">1af11df</a>
 </td>
 <td>
@@ -533,7 +567,23 @@ workflowr::wflow_publish("kmeans_demo.Rmd", verbose = TRUE)
 </div>
 </div>
 </div>
-<p>TO DO: Give overview and motivation for this analysis.</p>
+<p>This is another simple illustration of the <code>perform_cv</code>
+cross-validation interface in which we use cross-validation to select
+the <span class="math inline">\(k\)</span> (the number of clusters) in
+<span class="math inline">\(k\)</span>-means. This example introduces
+two slight complications that didn’t arise in the Elastic Net demo:</p>
+<ol style="list-style-type: decimal">
+<li><p>The <span class="math inline">\(k\)</span>-means output depends
+on initialization. We address this by providing a common initialization
+for all the <span class="math inline">\(k\)</span>-means runs. This
+ensures that <code>perform_cv</code> always produces the same
+result.</p></li>
+<li><p>The <span class="math inline">\(k\)</span>-means problem is an
+<em>unsupervised learning problem</em>, so <span
+class="math inline">\(Y\)</span> (which we define to be the unknown
+cluster centers) is not used in the “fit” function, and is only used for
+evaluating the quality of the fit.</p></li>
+</ol>
 <p>Load the <code>perform_cv</code> code.</p>
 <pre class="r"><code>library(glmnet)
 library(parallel)
@@ -554,6 +604,43 @@ par(mar = c(4,4,0,0))
 plot(X[,1],X[,2],col = &quot;royalblue&quot;,pch = 1,cex = 0.75,xlab = &quot;x1&quot;,ylab = &quot;x2&quot;)
 points(centers[,1],centers[,2],col = &quot;red&quot;,pch = 20,cex = 1)</code></pre>
 <p><img src="figure/kmeans_demo.Rmd/sim-data-1.png" width="390" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-sim-data-1">
+Past versions of sim-data-1.png
+</button>
+</p>
+<div id="fig-sim-data-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/b6a0140d6c668d5589f31695b27a30fc8966be51/docs/figure/kmeans_demo.Rmd/sim-data-1.png" target="_blank">b6a0140</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The solid red points are the cluster centers.</p>
 <p>Now run <em>k</em>-means once with <span class="math inline">\(k =
 10\)</span> clusters. We will use this to initialize the other runs of
@@ -577,16 +664,21 @@ points.</p>
 estimated cluster centers and the true cluster centers.</p>
 <pre class="r"><code>compute_mse &lt;- function (pred, true)
   mean((pred - true)^2)</code></pre>
-<p>Having defined these three functions, we are ready to use
-<code>perform_cv</code>.</p>
+<p>Having defined these three functions, and determined a common
+initialization for all the <em>k</em>-means runs, we are now ready to
+use <code>perform_cv</code>.</p>
 <pre class="r"><code>k &lt;- 2:10
-t0 &lt;- proc.time()
 cv &lt;- perform_cv(run_kmeans,predict_kmeans,compute_mse,X,
-                 centers[membership,],k)
-t1 &lt;- proc.time()
-print(t1 - t0)
-#    user  system elapsed 
-#   0.068   0.005   0.075</code></pre>
+                 centers[membership,],k)</code></pre>
+<p>Now let’s see how the prediction error evolves as we change <span
+class="math inline">\(k\)</span>.</p>
+<pre class="r"><code>par(mar = c(4,4,0,0))
+plot(k,rowMeans(cv),type = &quot;l&quot;,col = &quot;darkblue&quot;,lwd = 2,
+     xlab = &quot;k&quot;,ylab = &quot;mse&quot;)
+points(k,rowMeans(cv),pch = 20)</code></pre>
+<p><img src="figure/kmeans_demo.Rmd/plot-k-vs-mse-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>Reassuringly, the lowest error is achieved at the correct number of
+clusters (<span class="math inline">\(k = 5\)</span>).</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
