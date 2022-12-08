@@ -52,7 +52,7 @@ This function fits an Elastic Net model:
 ```{r fit-glmnet}
 fit_glmnet <- function (x, y, cvpar, noncvpar, init)
   glmnet(x,y,lambda = cvpar,alpha = 0.5)
-  ```
+```
   
 This function predicts Y using the fitted Elastic Net model:
 
