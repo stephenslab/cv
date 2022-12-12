@@ -299,7 +299,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-12-06
+<strong>Last updated:</strong> 2022-12-12
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -430,15 +430,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtreef30d795685ab50adf8b26cf2543e940f670c8aa9targetblankf30d795a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree79e475b44159388428134d15bb3ea2f96e5738c9targetblank79e475ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/cv/tree/f30d795685ab50adf8b26cf2543e940f670c8aa9" target="_blank">f30d795</a>
+<a href="https://github.com/stephenslab/cv/tree/79e475b44159388428134d15bb3ea2f96e5738c9" target="_blank">79e475b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtreef30d795685ab50adf8b26cf2543e940f670c8aa9targetblankf30d795a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabcvtree79e475b44159388428134d15bb3ea2f96e5738c9targetblank79e475ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -448,7 +448,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/cv/tree/f30d795685ab50adf8b26cf2543e940f670c8aa9" target="_blank">f30d795</a>.
+<a href="https://github.com/stephenslab/cv/tree/79e475b44159388428134d15bb3ea2f96e5738c9" target="_blank">79e475b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -507,6 +507,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/4a69b3da1346e17b83a298820ad55dd39f7e6f10/analysis/elastic_net_demo.Rmd" target="_blank">4a69b3d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-08
+</td>
+<td>
+Small fix to fit_glmnet in elastic net demo.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/cv/blob/1178ef4c84feb76fcde47073fed0cd8902d59347/analysis/elastic_net_demo.Rmd" target="_blank">1178ef4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-07
+</td>
+<td>
+Working on kmeans demo.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/cv/ea50726a7e22bbc3e04f9d4fb5f4ccadc81fc886/docs/elastic_net_demo.html" target="_blank">ea50726</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+Small fix to elastic_net_demo.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -643,7 +694,7 @@ accuracy of the predicted Y (here we use the mean-squared error, which
 is also what is used in the glmnet package to evaluate the
 predictions).</p>
 <p>This function fits an Elastic Net model:</p>
-<pre class="r"><code>fit_glmnet &lt;- function (x, y, cvpar, noncvpar, init)
+<pre class="r"><code>fit_glmnet &lt;- function (x, y, cvpar)
   glmnet(x,y,lambda = cvpar,alpha = 0.5)</code></pre>
 <p>This function predicts Y using the fitted Elastic Net model:</p>
 <pre class="r"><code>predict_glmnet &lt;- function (x, model)
@@ -660,7 +711,7 @@ cv &lt;- perform_cv(fit_glmnet,predict_glmnet,compute_mse,X,y,lambda,nc = 2)
 t1 &lt;- proc.time()
 print(t1 - t0)
 #    user  system elapsed 
-#   5.291   0.549   3.475</code></pre>
+#   0.019   0.004   2.854</code></pre>
 <p>Compare the result with the result obtained from running
 <code>cv.glmnet</code> on the same data (the dark blue line is the
 <code>cv.glmnet</code> result, and the dashed orange line is our
@@ -733,7 +784,7 @@ Session information
 # [8] base     
 # 
 # other attached packages:
-# [1] glmnet_4.0-2 Matrix_1.4-2
+# [1] glmnet_4.0-2  Matrix_1.2-18
 # 
 # loaded via a namespace (and not attached):
 #  [1] Rcpp_1.0.8        highr_0.8         pillar_1.6.2      compiler_3.6.2   
