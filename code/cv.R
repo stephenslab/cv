@@ -1,4 +1,33 @@
-# TO DO: Explain briefly what this function does, and how to use it.
+# This is the main "perform_cv" interface for performing k-fold
+# cross-validation. To learn how to use it, it is best to work through
+# the examples (Elastic Net demo, k-means demo), then read the more
+# detailed description of the inputs and outputs here.
+#
+# ARGUMENNTS
+#
+# fit:
+#
+# predict:
+#
+# evaluate:
+#
+# x:
+#
+# y:
+#
+# cvpar: 
+#
+# k: Number of folds.
+#
+# nc: Number of threads to use (passed as the mc.cores argument to
+# mclapply).
+#     
+# VALUE
+#
+# The output is an m x k cross-validation matrix, where k is the
+# number of folds and m is the number of parameter settings to
+# evaluate (should be the same as the length of cvpar).
+#
 perform_cv <- function (fit, predict, evaluate, x, y, cvpar, k = 5, nc = 1) {
 
   # Get the number of data samples.
