@@ -5,12 +5,19 @@
 #
 # ARGUMENNTS
 #
-# fit: Function used to train the model. It should be a function of
-# the form fit(x,y,cvpar,
+# fit: Function used to train the model. It should be a function that
+# takes three arguments: x, the training data (an n x p matrix); y,
+# additional training data which only used for supervised learning
+# methods (an n x p1 matrix);
 #
-# predict:
+# predict: Function used to make predictions using the trained model.
+# It should be a function that accepts two arguments: x, the data
+# examples used to predict or estimate the outcomes, y (an n x p
+# matrix); the model trained on the training data.
 #
-# evaluate: Function used to evaluate
+# evaluate: Function used to evaluate the predictions or estimates. It
+# should be a function that accepts two matrices of the same size: the
+# predicted outcomes; and the ground-truth outcomes.
 #
 # x: Training data, stored as an n x p matrix, where n is the number
 # of data examples, and p is the number of training features.
@@ -19,7 +26,8 @@
 # data examples, and p1 is the number of test features. For
 # "supervised learning" methods, y may also be used for training.
 #
-# cvpar: 
+# cvpar: A vector or list of parameter settings to evaluate by
+# cross-validation.
 #
 # k: Number of folds.
 #
