@@ -5,15 +5,19 @@
 #
 # ARGUMENNTS
 #
-# fit:
+# fit: Function used to train the model. It should be a function of
+# the form fit(x,y,cvpar,
 #
 # predict:
 #
-# evaluate:
+# evaluate: Function used to evaluate
 #
-# x:
+# x: Training data, stored as an n x p matrix, where n is the number
+# of data examples, and p is the number of training features.
 #
-# y:
+# y: Test data, stored as an n x p1 matrix, where n is the number of
+# data examples, and p1 is the number of test features. For
+# "supervised learning" methods, y may also be used for training.
 #
 # cvpar: 
 #
